@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>뇌새김 검색량 통합 그래프</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        /* 기본 스타일 */
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column; /* 그래프들을 세로로 정렬 */
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            background-color: #f4f4f4;
+            padding: 20px; /* 전체 페이지 여백 */
+            box-sizing: border-box; /* 패딩이 너비에 포함되도록 */
+        }
+        /* 각 그래프 컨테이너 스타일 */
+        .chart-container {
+            width: 90%; /* 컨테이너 너비 */
+            max-width: 900px; /* 최대 너비 */
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            margin-bottom: 30px; /* 각 그래프 컨테이너 사이 간격 */
+        }
+        /* 마지막 그래프 컨테이너는 아래쪽 간격 없이 */
+        .chart-container:last-child {
+            margin-bottom: 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="chart-container">
+        <canvas id="myChart"></canvas>
+    </div>
+
+    <div class="chart-container">
+        <canvas id="mySecondLanguageChart"></canvas>
+    </div>
+
+    <script>
+        // 첫 번째 그래프: 뇌새김 전체 검색량 데이터
+        const chartConfigMain = {
+          "type": "line",
+          "data": {
+            "labels": [
+              "2024년 1월", "2024년 2월", "2024년 3월", "2024년 4월", "2024년 5월", "2024년 6월",
+              "2024년 7월", "2024년 8월", "2024년 9월", "2024년 10월", "2024년 11월", "2024년 12월",
+              "2025년 1월", "2025년 2월", "2025년 3월", "2025년 4월", "2025년 5월", "2025년 6월",
+              "2025년 7월", "2025년 8월"
+            ],
+            "datasets": [
+              {
+                "label": "뇌새김 전체 검색량",
+                "data": [
+                  96600, 94230, 82660, 72300, 81840, 62200, 64650, 57670, 53380, 66550,
+                  63550, 78780, 80470, 76530, 81310, 88190, 80130, 62230, 54350, 59760
+                ],
+                "borderColor": "rgb(75, 192, 192)",
+                "tension": 0.1,
+                "fill": false
+              }
+            ]
+          },
+          "options": {
+            "responsive": true,
+            "plugins": {
+              "title": {
+                "display": true,
+                "text": "뇌새김 월별 검색량 추이 (2024년 1월 - 2025년 8월)"
+              }
+            },
+            "scales": {
+              "x": {
+                "title": {
+                  "display": true,
+                  "text": "월"
+                }
+              },
+              "y": {
+                "title": {
+                  "display": true,
+                  "text": "검색량"
+                },
+                "beginAtZero": false
+              }
+            }
+          }
+        };
+
+        // 두 번째 그래프: 뇌새김 제2외국어 검색량 데이터
+        const chartConfigSecondLanguage = {
+          "type": "line",
+          "data": {
+            "labels": [
+              "2024년 11월", "2024년 12월", "2025년 1월", "2025년 2월", "2025년 3월",
+              "2025년 4월", "2025년 5월", "2025년 6월", "2025년 7월", "2025년 8월"
+            ],
+            "datasets": [
+              {
+                "label": "뇌새김 제2외국어 검색량",
+                "data": [
+                  8680, 11150, 13200, 16790, 19920,
+                  20130, 22320, 17270, 20020, 21590
+                ],
+                "borderColor": "rgb(255, 99, 132)",
+                "tension": 0.1,
+                "fill": false
+              }
+            ]
+          },
+          "options": {
+            "responsive": true,
+            "plugins": {
+              "title": {
+                "display": true,
+                "text": "뇌새김 제2외국어 월별 검색량 추이 (2024년 11월 - 2025년 8월)"
+              }
+            },
+            "scales": {
+              "x": {
+                "title": {
+                  "display": true,
+                  "text": "월"
+                }
+              },
+              "y": {
+                "title": {
+                  "display": true,
+                  "text": "검색량"
+                },
+                "beginAtZero": true
+              }
+            }
+          }
+        };
+
+        // 첫 번째 캔버스에 첫 번째 그래프 그리기
+        const ctxMain = document.getElementById('myChart').getContext('2d');
+        new Chart(ctxMain, chartConfigMain);
+
+        // 두 번째 캔버스에 두 번째 그래프 그리기
+        const ctxSecondLanguage = document.getElementById('mySecondLanguageChart').getContext('2d');
+        new Chart(ctxSecondLanguage, chartConfigSecondLanguage);
+    </script>
+</body>
+</html>
